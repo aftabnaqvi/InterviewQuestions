@@ -66,7 +66,9 @@ public class BinaryTree {
 		if(node != null)
 			System.out.println("LCA found: " + node.mData);
 		
-		
+		node = bTree.lcaIterative(bTree.getRoot(), 40, 70);
+		if(node != null)
+			System.out.println("LCA found: " + node.mData);
 	}
 
 	public Node getRoot(){
@@ -328,5 +330,22 @@ public class BinaryTree {
 			return lcaRecursive(root.mLeft, first, second);
 		
 		return root;
+	}
+	
+	Node lcaIterative(Node root, int first, int second){
+		if(root == null)
+			return null;
+		
+		Node walker = root;
+		while(walker != null){
+			if(walker.mData > first && walker.mData > second){
+				walker = walker.mLeft;
+			} else if(walker.mData < first && walker.mData < second){
+				walker = walker.mRight;
+			} else 
+				return walker;
+		}
+		
+		return null;
 	}
 }
