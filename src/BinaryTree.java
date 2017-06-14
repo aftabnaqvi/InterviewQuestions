@@ -57,6 +57,16 @@ public class BinaryTree {
 		Node node = bTree.search(bTree.getRoot(), 300);
 		if(node != null)
 			System.out.println("data found in search: " + node.mData);
+		
+		node = bTree.searchItertative(bTree.getRoot(), 160);
+		if(node != null)
+			System.out.println("data found in search: " + node.mData);
+		
+		node = bTree.lcaRecursive(bTree.getRoot(), 40, 70);
+		if(node != null)
+			System.out.println("LCA found: " + node.mData);
+		
+		
 	}
 
 	public Node getRoot(){
@@ -276,6 +286,7 @@ public class BinaryTree {
 		System.out.println();
 	}
 	
+	// Search
 	public Node search(Node node, int data){
 		if(node == null)
 			return null;
@@ -289,4 +300,33 @@ public class BinaryTree {
 			return search(node.mRight, data);
 	}
 	
+	public Node searchItertative(Node node, int data){
+		if(node == null)
+			return null;
+		
+		while(node != null){
+			if(node.mData == data)
+				return node;
+			
+			if(data < node.mData)
+				node = node.mLeft;
+			else
+				node = node.mRight;
+		}
+		
+		return null;
+	}
+	
+	// Least common ancestor 
+	Node lcaRecursive(Node root, int first, int second){
+		if(root == null)
+			return null;
+		
+		if(root.mData < first && root.mData < second)
+			return lcaRecursive(root.mRight, first, second);
+		else if (root.mData > first && root.mData > second)
+			return lcaRecursive(root.mLeft, first, second);
+		
+		return root;
+	}
 }
