@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 class Node{
@@ -54,7 +56,7 @@ public class BinaryTree {
 		
 		bTree.displayLevelOrder();
 		
-		Node node = bTree.search(bTree.getRoot(), 300);
+		Node node = bTree.search(bTree.getRoot(), 40);
 		if(node != null)
 			System.out.println("data found in search: " + node.mData);
 		
@@ -69,6 +71,11 @@ public class BinaryTree {
 		node = bTree.lcaIterative(bTree.getRoot(), 40, 70);
 		if(node != null)
 			System.out.println("LCA found: " + node.mData);
+		
+		List<Integer> items = new ArrayList<Integer>();
+		bTree.nodesSum(bTree.getRoot(), 110, items);
+		
+		System.out.println("nodesSum: "+ items.toString() );
 	}
 
 	public Node getRoot(){
@@ -320,7 +327,7 @@ public class BinaryTree {
 	}
 	
 	// Least common ancestor 
-	Node lcaRecursive(Node root, int first, int second){
+	public Node lcaRecursive(Node root, int first, int second){
 		if(root == null)
 			return null;
 		
@@ -332,7 +339,7 @@ public class BinaryTree {
 		return root;
 	}
 	
-	Node lcaIterative(Node root, int first, int second){
+	public Node lcaIterative(Node root, int first, int second){
 		if(root == null)
 			return null;
 		
@@ -347,5 +354,52 @@ public class BinaryTree {
 		}
 		
 		return null;
+	}
+	
+	//nodesSum of a Tree.
+	public void nodesSum(Node node, int sum, List<Integer> items){
+		if(node == null || items.size() == 2){
+			return;
+		}
+
+		Node second = search(mRoot, sum-node.mData);  // make sure to pass mRoot for every search
+		if(second != null){
+			System.out.println("node.data: " + node.mData + " - second.data: " + second.mData);
+			items.add(node.mData);
+			items.add(second.mData);
+		} else {
+			nodesSum(node.mLeft, sum, items);
+			nodesSum(node.mRight, sum, items);
+		}
+	}
+	
+	public boolean isSubTree(Node first, Node second){
+		if(first == null){
+			return false;
+		}
+		
+		if(second == null){
+			return true;
+		}
+		
+		if(isEqual(first, second))
+			return true;
+		
+		return isSubTree(first.mLeft, second) || 
+			   isSubTree(first.mRight, second);
+	}
+	
+	private boolean isEqual(Node one, Node two){
+		if(one == null && two == null){
+			return true;
+		}
+			
+		if(one == null || two == null){
+			return false;
+		}
+		
+		return one.mData == two.mData &&
+			   isEqual(one.mLeft, two.mLeft) && 
+			   isEqual(one.mRight,  two.mRight);
 	}
 }
