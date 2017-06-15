@@ -73,9 +73,13 @@ public class BinaryTree {
 			System.out.println("LCA found: " + node.mData);
 		
 		List<Integer> items = new ArrayList<Integer>();
-		bTree.nodesSum(bTree.getRoot(), 110, items);
+		bTree.nodesSum(bTree.getRoot(), 200, items);
 		
 		System.out.println("nodesSum: "+ items.toString() );
+		
+		node = bTree.lca(bTree.getRoot(), 40, 70);
+		if(node != null)
+			System.out.println("LCA found: " + node.mData);
 	}
 
 	public Node getRoot(){
@@ -326,6 +330,7 @@ public class BinaryTree {
 		return null;
 	}
 	
+	// ASSUMPTION: both nodes exists in the tree
 	// Least common ancestor 
 	public Node lcaRecursive(Node root, int first, int second){
 		if(root == null)
@@ -338,7 +343,7 @@ public class BinaryTree {
 		
 		return root;
 	}
-	
+	// ASSUMPTION: both nodes exists in the tree
 	public Node lcaIterative(Node root, int first, int second){
 		if(root == null)
 			return null;
@@ -363,7 +368,7 @@ public class BinaryTree {
 		}
 
 		Node second = search(mRoot, sum-node.mData);  // make sure to pass mRoot for every search
-		if(second != null){
+		if(second != null && node != second){
 			System.out.println("node.data: " + node.mData + " - second.data: " + second.mData);
 			items.add(node.mData);
 			items.add(second.mData);
@@ -402,4 +407,33 @@ public class BinaryTree {
 			   isEqual(one.mLeft, two.mLeft) && 
 			   isEqual(one.mRight,  two.mRight);
 	}
+	
+	// ASSUMPTION: both nodes exists in the tree
+	public Node lca(Node node, int one, int two){
+		if(node == null)
+			return null;
+		
+		if(node.mData > one && node.mData > two)
+			return lca(node.mLeft, one, two);
+		else if(node.mData < one && node.mData < two)
+			return lca(node.mRight, one, two);
+		else 
+			return node;
+	}
+	
+//	1. How to uniquely identify the repeating strings from the array.
+//	2. How to search in Skiplist
+//	2nd round:
+//	1. BinarySearch
+//	2. How to write Customized Comparator
+//	3. Anagrams
+//	3rd round:
+//	Lunch with tech manager and find maximum sub array
+//	4th round:
+//	1. Binary Search in sorted matrix
+//	2. Different ways of writing Singleton pattern
+//	3. Resume go through
+//	5th round:
+//	1. How HashMap works
+//	2. Get sum using minimum combination of numbers provided
 }
