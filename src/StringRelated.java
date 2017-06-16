@@ -1,3 +1,4 @@
+import java.util.LinkedHashSet;
 
 public class StringRelated {
 
@@ -11,6 +12,9 @@ public class StringRelated {
 			System.out.print(dataBuffer[i]);
 		}
 		System.out.println();
+		
+		reverseWordsInString(dataBuffer);
+		System.out.println(dataBuffer);
 		
 		reverseWordsInString(dataBuffer);
 		System.out.println(dataBuffer);
@@ -52,4 +56,27 @@ public class StringRelated {
 			data[data.length-i-1] = temp;
 		}
 	}
+	
+	public static void reverse1(char data[]){
+		int start = 0;
+		int end = data.length-1;
+		while(start<end){
+			char temp = data[start];
+			data[start++] = data[end];
+			data[end++] = temp;
+		}
+	}
+	
+	/* Function removes duplicate characters from the string
+    This function work in-place */
+    void removeDuplicates(String str){
+        LinkedHashSet<Character> lhs = new LinkedHashSet<>();
+        for(int i=0;i<str.length();i++)
+            lhs.add(str.charAt(i));
+         
+        // print string after deleting duplicate elements
+        for(Character ch : lhs)
+            System.out.print(ch);
+    }
+    
 }
