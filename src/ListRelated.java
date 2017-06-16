@@ -25,6 +25,14 @@ public class ListRelated {
 		int [] a = {-2, -3, 4, -1, -2, 1, 5, -3};
         System.out.println("Maximum contiguous sum is " +
                                        maxSubArraySum(a));
+        
+        int a1[] = {5, 10, 15, 20, 25};
+        int b1[] = {10, 20, 30, 40, 50, 60};
+        
+        int c1[] = merge(a1, b1);
+        for(int x=0; x<c1.length; x++)
+        	System.out.print(" " + c1[x]);
+        System.out.println();
 	}
 
 	// intersection of two lists/arrays
@@ -51,13 +59,11 @@ public class ListRelated {
 		return res;
 	}
 	
-	static int maxSubArraySum(int a[])
-    {
+	public static int maxSubArraySum(int a[]){
         int size = a.length;
         int max_so_far = Integer.MIN_VALUE, max_ending_here = 0;
  
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++){
             max_ending_here = max_ending_here + a[i];
             if (max_so_far < max_ending_here)
                 max_so_far = max_ending_here;
@@ -66,4 +72,31 @@ public class ListRelated {
         }
         return max_so_far;
     }
+	
+	public static int[] merge(int a[], int b[]){
+		int index1 = 0;
+		int index2 = 0;
+		
+		int res[] = new int[a.length + b.length];
+		while(index1<a.length && index2<b.length){
+			if(a[index1] < b[index2]){
+				res[index1 + index2] = a[index1++];
+			} else if (a[index1] > b[index2]) {
+				res[index1 + index2] = b[index2++];
+			} else {
+				res[index1 + index2] = a[index1++];
+				res[index1 + index2] = b[index2++];
+			}
+		}
+		
+		while(index1<a.length){
+			res[index1 + index2] = a[index1++];
+		}
+		
+		while(index2<b.length){
+			res[index1 + index2] = b[index2++];
+		}
+		
+		return res;
+	}
 }
