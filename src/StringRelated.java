@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 public class StringRelated {
@@ -7,6 +9,8 @@ public class StringRelated {
 		String data = "Aftab Hassan Naqvi";
 		char dataBuffer[] = data.toCharArray();
 		System.out.println("isPalindrome: " + isPalindrome(dataBuffer));
+		
+		System.out.println(dataBuffer);
 		reverse(dataBuffer);
 		for(int i=0; i<dataBuffer.length; i++){
 			System.out.print(dataBuffer[i]);
@@ -16,8 +20,20 @@ public class StringRelated {
 		reverseWordsInString(dataBuffer);
 		System.out.println(dataBuffer);
 		
-		reverseWordsInString(dataBuffer);
-		System.out.println(dataBuffer);
+//		reverseWordsInString(dataBuffer);
+//		System.out.println(dataBuffer);
+//		
+//		reverseWordsInString(dataBuffer);
+//		System.out.println(dataBuffer);
+		
+		System.out.println("isAnagram: " + isAnagram("Aftab", "ttaAf"));
+		System.out.println("isAnagram: " + isAnagram("School MASTER", "The ClassROOM"));
+		
+		String s = "AA  A";
+		String m = "AAA";
+		System.out.println("isAnagram: " + isAnagram2(s, m));
+		System.out.println(s);
+		removeDuplicates(data);
 	}
 
 	public static boolean isPalindrome(char data[]){
@@ -69,7 +85,8 @@ public class StringRelated {
 	
 	/* Function removes duplicate characters from the string
     This function work in-place */
-    void removeDuplicates(String str){
+    static void removeDuplicates(String str){
+    	str = str.toLowerCase();
         LinkedHashSet<Character> lhs = new LinkedHashSet<>();
         for(int i=0;i<str.length();i++)
             lhs.add(str.charAt(i));
@@ -79,4 +96,60 @@ public class StringRelated {
             System.out.print(ch);
     }
     
+    // Anagram using hashmap.
+    static boolean isAnagram(String data1, String data2){
+    	HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+    	
+    	int size = data1.length();
+    	int size2 = data2.length();
+    	
+    	if(size != size2){
+    		return false;
+    	}
+    	
+    	data1 = data1.toLowerCase();
+    	data2 = data2.toLowerCase();
+    	for(int i=0; i<size; i++){
+    		char key = data1.charAt(i);
+    		int value = 0;
+    		if(map.containsKey(key)){
+    			value = map.get(key);
+    		} 
+    		map.put(key, ++value);
+    		
+    		value = 0;
+    		key = data2.charAt(i);
+    		if(map.containsKey(key)){
+    			value = map.get(key);
+    		} 
+    		map.put(key, --value);
+    	}
+    	    	
+    	for(int value : map.values()){
+    		if(value != 0)
+    			return false;
+    	}
+    	
+    	return true;
+    }
+    
+    
+    //Anagram with sort and equal
+    public static boolean isAnagram2(String one, String two){
+    	//Removing all white spaces from s1 and s2
+        one = one.replaceAll("\\s", "");
+        two = two.replaceAll("\\s", "");
+        
+        if(one.length() != two.length()){
+        	return false;
+        }
+        
+        char array1[] = one.toLowerCase().toCharArray();
+        char array2[] = two.toLowerCase().toCharArray();
+        
+        Arrays.sort(array1);
+        Arrays.sort(array2);
+        
+        return Arrays.equals(array1, array2);
+    }
 }
