@@ -186,10 +186,10 @@ public class BinaryTree {
 			return node;
 		}
 		
-		while(node.mLeft != null)
+		//while(node.mLeft != null)
 			return findMinRec(node.mLeft);
 		
-		return null;
+		//return null;
 	}
 	
 	// find maximum value  within a tree.
@@ -437,3 +437,41 @@ public class BinaryTree {
 //	1. How HashMap works
 //	2. Get sum using minimum combination of numbers provided
 }
+
+
+//Produce a function that takes an integer "x" and an array of integers, if there exists in the array a pair of integers that add up to "x" return true otherwise false.
+//		 
+//x = 20, array = {10, 5, 20, 15}
+//x = 10, array = {5}
+// 
+//boolean pairExist(int[] array, int target){
+// 
+//    
+//    for(int i=0; i< array.length; i++){
+//        for(int j=0; j<array.length; j++){
+//            if(i!=j && array[i] + array[j] == target){
+//                    return true;
+//                }
+//            }
+//        }
+//    }
+//    
+//    return false;
+//}
+// 
+//array[index] = 10
+//x = 20
+//x - array[index] = 10
+//hashmap<k, v> = {}
+// 
+//Map<Integer, Boolean> map = new HashMap<Integer, Boolean>();
+//for(int i=0; i<array.length; i++){
+//    if(map.keyset().contains(array[i])){
+//        return true;
+//    } else {
+//        map.put(x-array[i], True);
+//    }
+//    
+//    return false;
+//}
+
